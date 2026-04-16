@@ -232,7 +232,7 @@ export default function MemberManagement() {
       trangthai: 'Locked',
       ngaygianhap: new Date().toISOString().split('T')[0],
       cccd: '',
-      diaChi: '',
+      diaChi: ''
     });
     setShowAddModal(true);
   };
@@ -273,7 +273,7 @@ export default function MemberManagement() {
     }
 
     return result;
-  }, [members, filters, sortKey, sortDirection]);
+  }, [members, searchTerm, filters, sortKey, sortDirection]);
 
   const totalPages = Math.ceil(processedMembers.length / ITEMS_PER_PAGE);
   const paginatedMembers = processedMembers.slice(

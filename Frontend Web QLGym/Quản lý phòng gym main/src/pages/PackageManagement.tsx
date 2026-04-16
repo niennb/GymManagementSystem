@@ -164,7 +164,7 @@ export default function PackageManagement() {
     }
 
     return result;
-  }, [packages, filters, sortKey, sortDirection]);
+  }, [packages, searchTerm, filters, sortKey, sortDirection]);
 
   const totalPages = Math.ceil(processedPackages.length / ITEMS_PER_PAGE);
   const paginatedPackages = processedPackages.slice(
