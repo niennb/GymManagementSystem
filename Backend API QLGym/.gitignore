@@ -1,0 +1,19 @@
+# Bỏ qua các thư mục chứa mã đã được biên dịch (Cực kỳ nặng và không cần thiết)
+bin/
+obj/
+
+# Bỏ qua các file tạm và cấu hình cá nhân của Visual Studio
+.vs/
+*.user
+*.suo
+*.dbmdl
+*.jfm
+
+# Bỏ qua các cấu hình môi trường Dev trên máy cá nhân
+appsettings.Development.json
+
+# Bỏ qua thư mục gốc chứa các gói thư viện NuGet tạm thời
+packages/
+
+# Bỏ qua các file log
+*.log

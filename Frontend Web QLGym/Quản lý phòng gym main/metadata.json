@@ -1,0 +1,5 @@
+{
+  "name": "Hệ thống Quản lý Hội viên Gym",
+  "description": "Ứng dụng quản lý thông tin hội viên, hợp đồng và hóa đơn cho phòng tập Gym với các chức năng CRUD, tìm kiếm, lọc và sắp xếp chuyên nghiệp.",
+  "requestFramePermissions": []
+}
