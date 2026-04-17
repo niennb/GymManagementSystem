@@ -330,7 +330,11 @@ export default function MemberManagement() {
         fetchMembers();
       } else {
         const errData = await response.json().catch(() => ({}));
-        setAlertMessage(errData.message || "Lỗi: Không thể lưu. Có thể dữ liệu bị trùng trong SQL Server!");
+        let errorMsg = errData.message;
+        if (!errorMsg && errData.errors) {
+           errorMsg = Object.values(errData.errors).flat().join('; ');
+        }
+        setAlertMessage(errorMsg || "Lỗi: Dữ liệu không hợp lệ hoặc quá dài so với giới hạn SQL Server!");
         setIsLoading(false);
       }
     } catch (error) { 
@@ -403,7 +407,11 @@ export default function MemberManagement() {
         fetchMembers();
       } else {
         const errData = await response.json().catch(() => ({}));
-        setAlertMessage(errData.message || "Lỗi khi cập nhật!");
+        let errorMsg = errData.message;
+        if (!errorMsg && errData.errors) {
+           errorMsg = Object.values(errData.errors).flat().join('; ');
+        }
+        setAlertMessage(errorMsg || "Lỗi khi cập nhật! Có thể dữ liệu không hợp lệ hoặc quá dài so với CSDL.");
         setIsLoading(false);
       }
     } catch (error) { 
@@ -626,12 +634,12 @@ function MemberFormModal({ title, member, setMember, onSave, onClose, isEdit }: 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-gray-500 uppercase">Họ</label>
-              <input type="text" required className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+              <input type="text" required maxLength={50} className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
                 value={member.ho || ''} onChange={(e) => setMember({...member, ho: e.target.value})} />
             </div>
             <div>
               <label className="block text-xs font-bold text-gray-500 uppercase">Tên</label>
-              <input type="text" required className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+              <input type="text" required maxLength={50} className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
                 value={member.ten || ''} onChange={(e) => setMember({...member, ten: e.target.value})} />
             </div>
           </div>
@@ -655,18 +663,18 @@ function MemberFormModal({ title, member, setMember, onSave, onClose, isEdit }: 
           </div>
           <div>
             <label className="block text-xs font-bold text-gray-500 uppercase">Email</label>
-            <input type="email" required className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            <input type="email" required maxLength={100} className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
               value={member.email} onChange={(e) => setMember({...member, email: e.target.value})} />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-gray-500 uppercase">CCCD</label>
-              <input type="text" className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-                value={member.cccd || ''} onChange={(e) => setMember({...member, cccd: e.target.value})} placeholder="Số CCCD" />
+              <input type="text" maxLength={12} className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                value={member.cccd || ''} onChange={(e) => setMember({...member, cccd: e.target.value})} placeholder="Số CCCD (12 số)" />
             </div>
             <div>
               <label className="block text-xs font-bold text-gray-500 uppercase">Địa chỉ</label>
-              <input type="text" className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+              <input type="text" maxLength={255} className="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
                 value={member.diaChi || ''} onChange={(e) => setMember({...member, diaChi: e.target.value})} placeholder="Số nhà, Tên đường..." />
             </div>
           </div>
